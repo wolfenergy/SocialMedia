@@ -1,0 +1,13 @@
+mapping(uint => Post) public posts;
+    uint public postCount;
+
+    function createPost(string memory _contentHash) public {
+        postCount++;
+        posts[postCount] = Post(msg.sender, _contentHash, block.timestamp, 0);
+    }
+
+    function likePost(uint _postId) public {
+        require(_postId <= postCount, "Post does not exist");
+        posts[_postId].likes++;
+    }
+}
